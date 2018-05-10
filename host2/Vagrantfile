@@ -1,0 +1,17 @@
+HOST_IP="192.168.100.2"
+
+Vagrant.configure("2") do |config|
+ config.vm.box = "ubuntu/xenial64"
+
+  config.vm.network "private_network", ip: HOST_IP
+
+  config.vm.provision "shell", inline: <<-SHELL
+     apt-get install \
+             apt-transport-https \
+	     ca-certificates \
+	     curl \
+	     software-properties-common
+
+    /etc/init.d/nginx start
+  SHELL
+end
